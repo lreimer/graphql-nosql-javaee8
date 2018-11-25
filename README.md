@@ -1,6 +1,5 @@
-# GraphQL  Java EE
+# GraphQL Java with a NoSQL database on Java EE 8
 
-Sometimes relational object mapping using JPA is not a good fit for your data model
-and you may want to use a NoSQL data store. While there is no dedicated API, you
-can easily retrofit the functionality by using CDI, JSON-P or JSON-B in combination
-with the native driver like the Mongo DB Java client.
+A simple and pure CRUD type REST API is sometimes not a good fit when you want to
+avoid the dreaded N+1 call problem when querying related data. This showcase uses
+GraphQL Java with MongoDB on Java EE 8.
