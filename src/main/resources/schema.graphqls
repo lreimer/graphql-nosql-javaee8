@@ -4,4 +4,18 @@ schema {
 
 type QueryType {
     hello: String
+    vehicles(vin17: String): [VehicleType]
+}
+
+type VehicleType {
+    vin17: String
+    brand: String
+    color: String
+    baureihe: String
+    parts: [PartsType]
+}
+
+type PartsType {
+    name: String
+    baureihe: String
 }

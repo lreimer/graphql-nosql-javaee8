@@ -3,6 +3,7 @@ package cloud.nativ.javaee.graphql;
 import graphql.ExecutionInput;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
+import graphql.schema.DataFetcher;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.StaticDataFetcher;
 import graphql.schema.idl.RuntimeWiring;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.json.JsonObject;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -21,6 +23,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import static graphql.schema.idl.RuntimeWiring.newRuntimeWiring;
 
@@ -29,6 +35,12 @@ import static graphql.schema.idl.RuntimeWiring.newRuntimeWiring;
 @Path("graphql")
 @Produces(MediaType.APPLICATION_JSON)
 public class GraphQLResource {
+
+    @Inject
+    private VehicleRepository vehicleRepository;
+
+    @Inject
+    private PartsRepository partsRepository;
 
     private GraphQLSchema graphQLSchema;
 
@@ -44,6 +56,21 @@ public class GraphQLResource {
         RuntimeWiring runtimeWiring = newRuntimeWiring()
                 .type("QueryType", typeWiring -> typeWiring
                         .dataFetcher("hello", new StaticDataFetcher("world"))
+                        .dataFetcher("vehicles", (DataFetcher<List<Map<String, Object>>>) env -> {
+                            String vin17 = env.getArgument("vin17");
+                            if (Objects.isNull(vin17)) {
+                                return vehicleRepository.findAll();
+                            } else {
+                                Map<String, Object> vehicle = vehicleRepository.findByVin17(vin17);
+                                return Collections.singletonList(vehicle);
+                            }
+                        })
+                )
+                .type("VehicleType", typeWiring -> typeWiring
+                        .dataFetcher("parts", (DataFetcher<List<Map<String, Object>>>) env -> {
+                            Map<String, Object> vehicle = env.getSource();
+                            return partsRepository.findByBaureihe(vehicle.get("baureihe").toString());
+                        })
                 )
                 .build();
 
