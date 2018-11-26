@@ -4,6 +4,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
+import com.mongodb.client.result.DeleteResult;
 import org.bson.Document;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -74,5 +75,18 @@ public class MongoResource {
         Document found = Optional.ofNullable(documents.first()).orElseThrow(NotFoundException::new);
 
         return Response.ok(found.toJson()).build();
+    }
+
+    @DELETE
+    @Path("{collection}/{id}")
+    public Response delete(@PathParam("collection") String collectionName, @PathParam("id") String id) {
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+
+        DeleteResult result = collection.deleteOne(new Document("_id", id));
+        if (result.getDeletedCount() == 0) {
+            throw new NotFoundException("No document with ID " + id);
+        } else {
+            return Response.ok().build();
+        }
     }
 }
