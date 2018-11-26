@@ -42,7 +42,9 @@ public class GraphQLResource {
         TypeDefinitionRegistry typeDefinitionRegistry = schemaParser.parse(new InputStreamReader(schema));
 
         RuntimeWiring runtimeWiring = newRuntimeWiring()
-                .type("QueryType", builder -> builder.dataFetcher("hello", new StaticDataFetcher("world")))
+                .type("QueryType", typeWiring -> typeWiring
+                        .dataFetcher("hello", new StaticDataFetcher("world"))
+                )
                 .build();
 
         SchemaGenerator schemaGenerator = new SchemaGenerator();
@@ -64,6 +66,7 @@ public class GraphQLResource {
     public Response get(@QueryParam("query") @NotBlank String query,
                         @QueryParam("operationName") @DefaultValue("") String operationName,
                         @QueryParam("variables") @DefaultValue("") String variables) {
+        LOGGER.info("Perform standard GraphQL GET request with query {}", query);
         GraphQL build = GraphQL.newGraphQL(graphQLSchema).build();
 
         // TODO add operationName and variables
@@ -123,6 +126,8 @@ public class GraphQLResource {
     @POST
     @Consumes("application/graphql")
     public Response post(@NotNull String query) {
+        LOGGER.info("Perform GraphQL POST request with query {}", query);
+
         GraphQL build = GraphQL.newGraphQL(graphQLSchema).build();
         ExecutionResult executionResult = build.execute(query);
 
