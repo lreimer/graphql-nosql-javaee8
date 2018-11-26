@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  mongodb:
+    image: mongo:3.6
+    ports:
+    - "27017:27017"
+    networks:
+    - jee8net
+
+  nosql-javaee:
+    build:
+      context: .
+    image: graphql-nosql-javaee8:1.0.1
+    ports:
+    - "8080:8080"
+    networks:
+    - jee8net
+
+networks:
+  jee8net:
+    driver: bridge

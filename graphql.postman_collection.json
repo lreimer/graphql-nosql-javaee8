@@ -1,0 +1,112 @@
+{
+  "info": {
+    "_postman_id": "5c4f5f7e-3926-4490-b47f-f473a46af883",
+    "name": "GraphQL Java EE",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET Query Hello",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/graphql?query={hello}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "graphql"
+          ],
+          "query": [
+            {
+              "key": "query",
+              "value": "{hello}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Query Hello with GraphQL Content-Type",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/graphql",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{hello}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/graphql?",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "graphql"
+          ],
+          "query": [
+            {
+              "key": "query",
+              "value": "",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Query Hello as application/json Parameter",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/graphql?query={hello}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "graphql"
+          ],
+          "query": [
+            {
+              "key": "query",
+              "value": "{hello}"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
