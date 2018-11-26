@@ -36,6 +36,38 @@
 			"response": []
 		},
 		{
+			"name": "POST Parts to Collection",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Wheels\",\n\t\"baureihe\": \"M5\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/mongodb/parts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"mongodb",
+						"parts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "POST Query Hello with GraphQL Content-Type",
 			"request": {
 				"method": "POST",
@@ -135,38 +167,6 @@
 						"api",
 						"mongodb",
 						"vehicle"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST Parts to Collection",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Wheels\",\n\t\"baureihe\": \"M5\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/mongodb/parts",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"mongodb",
-						"parts"
 					]
 				}
 			},
