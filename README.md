@@ -7,7 +7,7 @@ GraphQL Java with MongoDB on Java EE 8.
 ## Usage
 
 To run everything locally, you need to first compile and build the showcase image.
-``` 
+```
 $ ./gradlew assemble
 $ docker-compose up --build
 ```
@@ -26,6 +26,13 @@ $ http get localhost:8080/api/graphql?query={vehicles{vin17,brand}}
 $ http get localhost:8080/api/graphql?query={vehicles(vin17:"12345678901234567"){vin17,brand}}
 $ http get localhost:8080/api/graphql?query={vehicles(vin17:"12345678901234567"){vin17,brand,baureihe,parts{name}}}
 ```
+
+## References
+
+- https://github.com/graphql-java/graphql-java
+- https://graphql.org/code/#java
+- https://www.graphql-java.com/documentation/v11/
+- https://graphql.org/learn/serving-over-http/
 
 ## Maintainer
 
